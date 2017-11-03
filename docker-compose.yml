@@ -1,0 +1,38 @@
+version: '3'
+services:
+  influxdb:
+    image: influxdb:alpine
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    volumes:
+      - ./data/influxdb:/var/lib/influxdb
+    environment:
+      INFLUXDB_REPORTING_DISABLED: "true"
+      INFLUXDB_DB: telegraf
+      INFLUXDB_USER: telegraf
+      INFLUXDB_USER_PASSWORD: supersecret
+
+  telegraf:
+    image: telegraf:latest
+    container_name: telegraf
+    network_mode: "host"
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+
+  grafana:
+    build: ./grafana
+    container_name: grafana
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    links:
+      - influxdb
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
+      INFLUXDB_URI: "http://influxdb:8086"
+      INFLUXDB_DB: telegraf
+      INFLUXDB_USER: telegraf
+      INFLUXDB_USER_PASSWORD: supersecret
