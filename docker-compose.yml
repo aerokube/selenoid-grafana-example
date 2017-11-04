@@ -12,14 +12,6 @@ services:
       INFLUXDB_DB: telegraf
       INFLUXDB_USER: telegraf
       INFLUXDB_USER_PASSWORD: supersecret
-
-  telegraf:
-    image: telegraf:latest
-    container_name: telegraf
-    network_mode: "host"
-    volumes:
-      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
-
   grafana:
     build: ./grafana
     container_name: grafana
@@ -36,3 +28,13 @@ services:
       INFLUXDB_DB: telegraf
       INFLUXDB_USER: telegraf
       INFLUXDB_USER_PASSWORD: supersecret
+
+# ON HOSTS WHERE SELENOIDS
+  telegraf:
+    image: telegraf:latest
+    container_name: telegraf
+    network_mode: "host"
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    environment:
+      INFLUXDB_URI: "http://influxdb:8086"
