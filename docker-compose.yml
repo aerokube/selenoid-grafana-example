@@ -37,4 +37,5 @@ services:
     volumes:
       - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
     environment:
+      # real influx host
       INFLUXDB_URI: "http://influxdb:8086"
