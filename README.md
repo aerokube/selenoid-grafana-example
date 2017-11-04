@@ -7,6 +7,7 @@ Dashboard itself can be found at [Grafana/Dashboards/Selenoid Stats](https://gra
 
 - Change `INFLUXDB_URI` env var for telegraf to your host in `docker-compose.yml`
 - `docker-compose up`
+- Go to `localhost:3000`
 
 NOTE: This will not work as is on mac-osx. You should change hosts and ports in config to appropriate values
 (usually host ip, accessible from containers can be found with `ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1` command)
