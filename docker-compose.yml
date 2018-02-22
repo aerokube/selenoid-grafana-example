@@ -29,7 +29,7 @@ services:
       INFLUXDB_USER: telegraf
       INFLUXDB_USER_PASSWORD: supersecret
 
-# ON HOSTS WHERE SELENOIDS
+# SHOULD BE STARTED ON THE HOST WITH SELENOID
   telegraf:
     image: telegraf:latest
     container_name: telegraf
