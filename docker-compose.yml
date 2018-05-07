@@ -19,6 +19,7 @@ services:
       - ./data/grafana:/var/lib/grafana
     ports:
       - "3000:3000"
+    user: "root"
     links:
       - influxdb
     environment:
